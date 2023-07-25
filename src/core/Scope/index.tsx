@@ -8,23 +8,23 @@ type ContextProps = {
 };
 type ScopeContextProps = {
   children: React.ReactNode;
-  stores: Shard[];
+  shards: Shard[];
 };
 
 const Context = createContext<ContextProps>({});
 export const useScope = () => useContext(Context);
 
-const Scope = ({ children, stores }: ScopeContextProps) => {
+const Scope = ({ children, shards }: ScopeContextProps) => {
   const id = useMemo(() => {
     const scopedId = uuid();
 
-    const scopedStores = stores.map((i) => {
+    const scopedShards = shards.map((i) => {
       i.addScope(scopedId);
       return i;
     });
-    scopedList.set(scopedId, scopedStores);
+    scopedList.set(scopedId, scopedShards);
     return scopedId;
-  }, [stores]);
+  }, [shards]);
 
   return (
     <Context.Provider value={{ scopeId: id }}>{children}</Context.Provider>
