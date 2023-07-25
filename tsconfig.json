@@ -10,5 +10,5 @@
     "sourceMap": true,
     "declaration": true
   },
-  "exclude": ["www", "tests", "examples"]
+  "exclude": ["www", "tests", "examples", "assets"]
 }
