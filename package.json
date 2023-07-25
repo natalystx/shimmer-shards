@@ -1,0 +1,26 @@
+{
+  "name": "shimmer-shards",
+  "version": "1.0.0",
+  "description": "shimmer-shards is a reactive state library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "lint": "npx eslint src/**/*/.[ts|tsx]"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.4.4",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.45.0",
+    "git-conventional-commits": "^2.6.5",
+    "husky": "^8.0.0",
+    "prettier": "^3.0.0",
+    "rollup": "^3.26.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.1",
+    "typescript": "^5.1.6"
+  }
+}
