@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "lint": "npx eslint src/**/*/.[ts|tsx]"
+    "lint": "npx eslint src/**/*"
   },
   "author": "",
   "license": "MIT",
@@ -17,6 +17,7 @@
     "eslint": "^8.45.0",
     "git-conventional-commits": "^2.6.5",
     "husky": "^8.0.0",
+    "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
     "rollup": "^3.26.3",
     "ts-node": "^10.9.1",

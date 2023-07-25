@@ -1,0 +1,10 @@
+node_modules
+dist
+.husky
+.github
+.eslintrc.js
+tsconfig.json
+.eslintrc.js
+git-conventional-commits.yaml
+package-lock.json
+package-lock.json
