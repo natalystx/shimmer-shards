@@ -9,11 +9,11 @@ import { scopedList, useScope } from "../Scope";
 
 const publishers = new Map<string, Publisher<any>>();
 
-export class Shard<T = {}> {
-  private value: T;
+export class Shard<Type = {}> {
+  private value: Type;
   private uuid = uuid();
   private scoped?: string;
-  constructor(initialValue: T) {
+  constructor(initialValue: Type) {
     this.value = initialValue;
   }
 
@@ -32,13 +32,13 @@ export class Shard<T = {}> {
   getScope = () => this.scoped;
 }
 
-export const shard = <T>(initial: T) => {
+export const shard = <Type>(initial: Type) => {
   return new Shard(initial);
 };
 
-export const useShard = <T>(store: Shard<T>): State<T> => {
+export const useShard = <Type>(store: Shard<Type>): State<Type> => {
   const [state, setState] = useState(store.getInitialValue());
-  const publisher = new Publisher<T>();
+  const publisher = new Publisher<Type>();
   const { scopeId } = useScope();
 
   const id = useMemo(() => {
@@ -65,7 +65,7 @@ export const useShard = <T>(store: Shard<T>): State<T> => {
 
   return [
     state,
-    (v: T | PrevFn<T>): void => {
+    (v: Type | PrevFn<Type>): void => {
       if (typeof v === "function") {
         const newValue = (v as any)(state);
         publishers.get(id)?.publish(newValue);
@@ -76,9 +76,9 @@ export const useShard = <T>(store: Shard<T>): State<T> => {
   ];
 };
 
-export const useStoreValue = <T>(store: Shard<T>): T => {
+export const useStoreValue = <Type>(store: Shard<Type>): Type => {
   const [state, setState] = useState(store.getInitialValue());
-  const publisher = new Publisher<T>();
+  const publisher = new Publisher<Type>();
   const { scopeId } = useScope();
   const id = useMemo(() => {
     const scopedId = `${scopeId}-${store.getId()}`;
@@ -91,7 +91,7 @@ export const useStoreValue = <T>(store: Shard<T>): T => {
     if (!publishers.has(id)) {
       publishers.set(id, publisher);
     }
-    publishers.get(id)?.subscribe((v: T) => {
+    publishers.get(id)?.subscribe((v: Type) => {
       setState(v);
     });
   }, []);

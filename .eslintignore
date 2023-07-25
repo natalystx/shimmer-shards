@@ -1,5 +1,5 @@
-node_modules
-dist
+node_modules/
+dist/
 .husky
 .github
 .eslintrc.js
@@ -8,3 +8,4 @@ tsconfig.json
 git-conventional-commits.yaml
 package-lock.json
 package-lock.json
+www/
