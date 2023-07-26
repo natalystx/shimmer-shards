@@ -29,4 +29,4 @@ jobs:
       - name: Publish to npm
         run: npm run publish # Or replace this with the command to publish your package
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
