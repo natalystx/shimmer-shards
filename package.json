@@ -1,10 +1,9 @@
 {
-  "name": "shimmer-shards",
-  "version": "0.0.1",
-  "description": "shimmer-shards is a reactive state library",
+  "name": "shimmershards",
+  "version": "0.0.3",
+  "description": "shimmershards is a reactive state library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "private": "false",
   "repository": {
     "type": "git",
     "url": "https://github.com/qusenazlas/shimmer-shards.git"
@@ -21,7 +20,8 @@
     "build:esm": "tsc -outDir dist/esm",
     "build:types": "tsc --declaration --emitDeclarationOnly -outDir dist/types",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
-    "publish": "npm publish --access public"
+    "release": "npm run build && npx changeset publish && npm publish --access public",
+    "setup": "npm install && npm run build"
   },
   "lint-staged": {
     "*": "eslint"
