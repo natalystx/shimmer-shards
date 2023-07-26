@@ -28,8 +28,7 @@ jobs:
       - name: "Publish package"
         uses: changesets/action@v1
         id: changesets
-        with:
-          ci: npm ci
+        with:        
           publish: npm run publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
