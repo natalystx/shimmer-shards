@@ -1,6 +1,6 @@
 {
   "name": "shimmershards",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "shimmershards is a reactive state library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -10,6 +10,21 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react",
+    "state",
+    "manager",
+    "management",
+    "recoil",
+    "store",
+    "jotai",
+    "reactive",
+    "mobx",
+    "nextjs",
+    "next",
+    "hooks",
+    "context"
   ],
   "scripts": {
     "test": "npx jest tests/",
