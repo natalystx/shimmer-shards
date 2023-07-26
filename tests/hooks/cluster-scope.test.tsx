@@ -1,11 +1,11 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import ScopeComponent from "../../examples/Scope";
+import ScopeWithCluster from "../../examples/ScopeWithCluster";
 
-describe("Scope", () => {
+describe("cluster Scope", () => {
   beforeEach(() => {
-    render(<ScopeComponent />);
+    render(<ScopeWithCluster />);
   });
 
   test("is Component rendered", () => {
