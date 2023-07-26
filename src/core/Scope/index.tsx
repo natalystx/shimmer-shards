@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createContext, useContext, useMemo } from "react";
 import { v4 as uuid } from "uuid";
 import { Shard } from "../shard";
+
 export const scopedList = new Map<string, Shard[]>();
 
 type ContextProps = {
@@ -8,7 +10,7 @@ type ContextProps = {
 };
 type ScopeContextProps = {
   children: React.ReactNode;
-  shards: Shard[];
+  shards: Shard[] | Record<string, Shard>;
 };
 
 const Context = createContext<ContextProps>({});
@@ -18,9 +20,19 @@ const Scope = ({ children, shards }: ScopeContextProps) => {
   const id = useMemo(() => {
     const scopedId = uuid();
 
-    const scopedShards = shards.map((i) => {
-      i.addScope(scopedId);
-      return i;
+    if (Array.isArray(shards)) {
+      const scopedShards = shards.map((i) => {
+        i.addScope(scopedId);
+        return i;
+      });
+      scopedList.set(scopedId, scopedShards);
+    }
+
+    const keys = Object.keys(shards);
+
+    const scopedShards = keys.map((i: string) => {
+      (shards as any)[i].addScope(scopedId);
+      return (shards as any)[i] as Shard;
     });
     scopedList.set(scopedId, scopedShards);
     return scopedId;
