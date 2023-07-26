@@ -7,6 +7,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@qusenazlas"
+  },
   "scripts": {
     "test": "npx jest tests/",
     "prepare": "husky install",
@@ -15,7 +18,8 @@
     "build": "npm run test && rm -rf dist/ && npm run format:write && npm run build:esm && npm run build:cjs && npm run build:types",
     "build:esm": "tsc -outDir dist/esm",
     "build:types": "tsc --declaration --emitDeclarationOnly -outDir dist/types",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
+    "publish": "npm publish --access public --tag beta"
   },
   "lint-staged": {
     "*": "eslint"
