@@ -1,6 +1,6 @@
 {
   "name": "shimmershards",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "shimmershards is a reactive state library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -20,13 +20,13 @@
     "build:esm": "tsc -outDir dist/esm",
     "build:types": "tsc --declaration --emitDeclarationOnly -outDir dist/types",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
-    "release": "npm run build && npx changeset publish && npm publish --access public",
+    "release": "npm run build && npx changeset publish",
     "setup": "npm install && npm run build"
   },
   "lint-staged": {
     "*": "eslint"
   },
-  "author": "",
+  "author": "qusenazlas",
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-env": "^7.22.9",
