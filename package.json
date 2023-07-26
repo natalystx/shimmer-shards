@@ -7,9 +7,6 @@
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@qusenazlas"
-  },
   "scripts": {
     "test": "npx jest tests/",
     "prepare": "husky install",
