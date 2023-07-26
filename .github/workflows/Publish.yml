@@ -27,7 +27,7 @@ jobs:
       - name: node
         uses: actions/setup-node@v2
         with:
-          node-version: "12" 
+          node-version: "18.x" 
           registry-url: https://registry.npm.org/
       - name: Publish to npm           
         run: npm run publish # Or replace this with the command to publish your package
