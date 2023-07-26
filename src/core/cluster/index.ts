@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Shard, useShard } from "../shard";
 
-type ClusterMembers<Type> = {
+export type ClusterMembers<Type = {}> = {
   [Property in keyof Type]: Shard<Type[Property]>;
 };
 
