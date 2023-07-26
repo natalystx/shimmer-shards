@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "18.x" # Choose the Node.js version you need
+          node-version: "16.x" # Choose the Node.js version you need
 
       - name: Install Dependencies
         run: rm -rf node_modules && npm install # Or yarn install if you're using Yarn
