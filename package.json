@@ -7,6 +7,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qusenazlas/shimmer-shards.git"
+  },
   "scripts": {
     "test": "npx jest tests/",
     "prepare": "husky install",
