@@ -1,0 +1,118 @@
+## Scope 🔭
+
+### How it works?
+
+The `Scope` allows you to localize shard states to specific sections of your application.
+By wrapping components with the Scope component, you can separate shard states,
+ensuring that updates in one scope do not affect others, even if the same shard is used.
+
+```tsx
+import { Scope, shard, useShard } from "shimmershards";
+
+// Create two shards, one for name and one for age
+const nameShard = shard("John");
+const ageShard = shard(18);
+
+// Child component that uses the name and age shards
+const Child = () => {
+  const [age, setAge] = useShard(ageShard);
+  const [name, setName] = useShard(nameShard);
+
+  return (
+    <div>
+      age: {age}
+      name: {name}
+      <button onClick={() => setAge((prev) => prev + 1)}>increase age</button>
+      <input value={name} onChange={(e) => setName(e.target.value)} />
+    </div>
+  );
+};
+
+const Component = () => {
+  const [age, setAge] = useShard(ageShard);
+  const [name, setName] = useShard(nameShard);
+
+  return (
+    <div>
+      {/* Outside scope */}
+      <p>
+        age: {age}
+        name: {name}
+      </p>
+      <br />
+      <Scope shards={[nameShard, ageShard]}>
+        {/* Scope A */}
+        <Child />
+      </Scope>
+      <br />
+      <Scope shards={[nameShard, ageShard]}>
+        {/* Scope B */}
+        <Child />
+      </Scope>
+    </div>
+  );
+};
+```
+
+With the Scope component, you can manage shard states independently within different sections of your application.
+Any updates to the state within one scope will not impact the state in other scopes or the outside scope,
+even if you are using the same shards. And for others, a shard or cluster that not passing to `Scope`
+props will be using global state sync like a regular shard.
+
+### Using scope with Cluster
+
+```tsx
+import { Scope, shard, useCluster } from "shimmershards";
+
+// Create two shards, one for name and one for age
+const nameShard = shard("John");
+const ageShard = shard(18);
+
+// Create a cluster with the name and age shards
+const cluster = {
+  useName: nameShard,
+  useAge: ageShard,
+};
+
+// Child component that uses the cluster
+const Child = () => {
+  const { useName, useAge } = useCluster(cluster);
+  const [age, setAge] = useAge();
+  const [name, setName] = useName();
+
+  return (
+    <div>
+      age: {age}
+      name: {name}
+      <button onClick={() => setAge((prev) => prev + 1)}>increase age</button>
+      <input value={name} onChange={(e) => setName(e.target.value)} />
+    </div>
+  );
+};
+
+const Component = () => {
+  const { useName, useAge } = useCluster(cluster);
+  const [age, setAge] = useAge();
+  const [name, setName] = useName();
+
+  return (
+    <div>
+      {/* Outside scope */}
+      <p>
+        age: {age}
+        name: {name}
+      </p>
+      <br />
+      <Scope shards={cluster}>
+        {/* Scope A */}
+        <Child />
+      </Scope>
+      <br />
+      <Scope shards={cluster}>
+        {/* Scope B */}
+        <Child />
+      </Scope>
+    </div>
+  );
+};
+```
