@@ -10,7 +10,7 @@ export default [
     output: [
       {
         file: "dist/index.js",
-        format: "cjs",
+        exports: "named",
         sourcemap: true,
       },
       {
@@ -21,7 +21,7 @@ export default [
       },
     ],
     plugins: [
-      typescript({ sourceMap: true, declaration: true }),
+      typescript({ tsconfig: "./tsconfig.json" }),
       babel({
         exclude: "node_modules/**",
         presets: ["@babel/preset-react"],
