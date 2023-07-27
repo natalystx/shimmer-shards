@@ -14,7 +14,7 @@ type ReturnClusterMembers<Type> = {
 };
 
 export const useCluster = <Type>(
-  data: ClusterMembers<Type>,
+  data: ClusterMembers<Type>
 ): ReturnClusterMembers<Type> => {
   // eslint-disable-next-line prefer-const, @typescript-eslint/no-explicit-any
   let states: any = {};
