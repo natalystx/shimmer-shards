@@ -45,6 +45,9 @@
     "react": ">=17.0.0",
     "uuid": ">=9.0.0"
   },
+  "peerDependencies": {
+    "react": "16.x"
+  },
   "author": "qusenazlas",
   "license": "MIT",
   "devDependencies": {
