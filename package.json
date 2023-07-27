@@ -41,6 +41,9 @@
   "lint-staged": {
     "*": "eslint"
   },
+  "dependencies": {
+    "uuid": "^9.0.0"
+  },
   "author": "qusenazlas",
   "license": "MIT",
   "devDependencies": {
@@ -73,7 +76,6 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "tslib": "^2.6.1",
-    "typescript": "^5.1.6",
-    "uuid": "^9.0.0"
+    "typescript": "^5.1.6"
   }
 }
