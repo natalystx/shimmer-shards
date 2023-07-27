@@ -1,6 +1,6 @@
 {
   "name": "shimmershards",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "shimmershards is a reactive state library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -43,6 +43,9 @@
   },
   "dependencies": {
     "uuid": "^9.0.0"
+  },
+  "peerDependencies": {
+    "react": "16.x"
   },
   "author": "qusenazlas",
   "license": "MIT",
