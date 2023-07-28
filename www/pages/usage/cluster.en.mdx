@@ -1,0 +1,39 @@
+## Cluster 👯‍♀️
+
+### What's the Cluster
+
+A cluster is a way to group multiple shards together. It provides a mechanism to manage related state pieces collectively.
+
+If you have many related shards you can create an object to store them in one place, like the example down below.
+
+```tsx
+import { shard, useCluster } from "shimmershards";
+const nameShard = shard("John");
+const ageShard = shard(18);
+export const cluster = {
+  useName: nameShard,
+  useAge: ageShard,
+};
+```
+
+### useCluster
+
+To consume the states from a cluster you need to import a function named `useCluster` from shimmershards.
+`useCluster` will take one parameter as a cluster object.
+Then will give you back an object that contains a function to consume a state.
+
+```tsx
+const Component = () => {
+  const { useName, useAge } = useCluster(cluster);
+  const [name, setName] = useName();
+  const [age, setAge] = useAge();
+
+  return (
+    <div>
+      name: {name} age: {age}
+    </div>
+  );
+};
+```
+
+The cluster object also can using by multiple components and all those states will sync.
