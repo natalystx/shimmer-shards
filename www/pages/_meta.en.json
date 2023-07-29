@@ -2,5 +2,20 @@
   "index": "Introduction 🙌",
   "usage": "Usage 👩‍💻",
   "advanced": "Advanced 🏄‍♀️",
-  "examples": "Examples 📝"
+  "playground": "Playground 🛝",
+  "npm": {
+    "title": "Package",
+    "href": "https://www.npmjs.com/package/shimmershards",
+    "newWindow": true
+  },
+  "issue": {
+    "title": "Issues",
+    "href": "https://github.com/natalystx/shimmer-shards/issues/new",
+    "newWindow": true
+  },
+  "repository": {
+    "title": "Github",
+    "href": "https://github.com/natalystx/shimmer-shards",
+    "newWindow": true
+  }
 }

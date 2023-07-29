@@ -1,0 +1,20 @@
+### Composing shards
+
+In the library, there is no built-in function to directly combine shard states together. However, you can achieve
+this by using either `useMemo` or `useEffect` from the React library.
+You can simply combine state by manually merging the individual shard states as needed.
+
+```tsx
+const Component = () => {
+  const [name, setName] = useShard(nameShard);
+  const [age, setName] = useShard(ageShard);
+
+  // using useMemo
+  const user = useMemo(() => ({ name, age, active: true }), [name, age]);
+  // or using useEffect
+  const [userState, setUser] = useState({});
+  useEffect(() => {
+    setUser((prev) => ({ ...prev, name, age, active: true }));
+  }, [name, age]);
+};
+```

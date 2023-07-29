@@ -1,0 +1,51 @@
+### Custom global hooks
+
+With ShimmerShards, you can easily extend your custom hook to be used and state-synced across multiple components.
+It offers a functionality similar to React context, but without the need for a provider.
+This means you can share and manage state across different components effortlessly,
+just like using a React context, but without the overhead of setting up a provider.
+ShimmerShards simplifies the process of state synchronization and makes
+it convenient to use your custom hook across your application components.
+
+#### Example
+
+```tsx
+import { useShard, shard } from "shimmer-shards";
+
+const loggedInShard = shard(false);
+const userInShard = shard({ name: "", age: "", id: "" });
+
+export const useAuth = () => {
+  const [isLoggedIn, setIsLoggedIn] = useShard(loggedInShard);
+  const [user, setUser] = useShard(userInShard);
+
+  const login = (userData) => {
+    // Perform login logic, e.g., validate user credentials
+    setUser(userData);
+    setIsLoggedIn(true);
+  };
+
+  const logout = () => {
+    // Perform logout logic
+    setUser(null);
+    setIsLoggedIn(false);
+  };
+
+  return { isLoggedIn, user, login, logout };
+};
+```
+
+You can import it into your component.
+
+```tsx
+import { useAuth } from "../useAuth";
+const Component = () => {
+  const { isLoggedIn, user, login, logout } = useAuth();
+
+  if (isLoggedIn) {
+    return <div>Welcome, {user.name}!</div>;
+  } else {
+    return <button onClick={login}>Login</button>;
+  }
+};
+```
