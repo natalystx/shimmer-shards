@@ -13,6 +13,12 @@ export default [
         exports: "named",
         sourcemap: true,
       },
+      {
+        file: "dist/index.es.js",
+        format: "es",
+        exports: "named",
+        sourcemap: true,
+      },
     ],
     plugins: [
       typescript({ tsconfig: "./tsconfig.json" }),
