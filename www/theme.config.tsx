@@ -34,7 +34,7 @@ const config: DocsThemeConfig = {
     component: ({ filePath, children, className }) => (
       <a
         className={className}
-        href={`https://github.com/qusenazlas/shimmer-shards/blob/main/www/${filePath}`}
+        href={`https://github.com/natalystx/shimmer-shards/blob/main/www/${filePath}`}
       >
         {children}
       </a>
@@ -50,9 +50,9 @@ const config: DocsThemeConfig = {
     // { locale: "th", text: "ไทย" },
   ],
   project: {
-    link: "https://github.com/qusenazlas/shimmer-shards",
+    link: "https://github.com/natalystx/shimmer-shards",
   },
-  docsRepositoryBase: "https://github.com/qusenazlas/shimmer-shards",
+  docsRepositoryBase: "https://github.com/natalystx/shimmer-shards",
   footer: {
     text: `© ${new Date(Date.now()).getFullYear()} ShimmerShards`,
   },
