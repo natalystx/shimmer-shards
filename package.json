@@ -1,6 +1,6 @@
 {
   "name": "shimmershards",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "shimmershards is a reactive state library",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
