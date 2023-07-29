@@ -1,6 +1,6 @@
 {
   "name": "shimmershards",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "shimmershards is a reactive state library",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -36,7 +36,10 @@
     "build:types": "tsc --declaration --emitDeclarationOnly -outDir dist/types",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
     "release": "npm run build && npx changeset publish",
-    "setup": "npm install && npm run build"
+    "setup": "npm install && npm run build",
+    "docs": "cd ./www && npm run dev",
+    "build:docs": "cd ./www && npm run build",
+    "start:docs": "cd ./www && npm start"
   },
   "lint-staged": {
     "*": "eslint"

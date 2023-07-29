@@ -1,0 +1,88 @@
+import { Tabs, Tab } from "nextra/components";
+import Copy from "../../components/Copy";
+
+## Installation
+
+<Tabs items={["npm", "pnpm", "yarn"]}>
+  <Tab>
+    ```npm i shimmershards``` <Copy copyText={"npm i shimmershards"} />
+  </Tab>
+  <Tab>
+    ```pnpm add shimmershards``` <Copy copyText={"pnpm add shimmershards"} />
+  </Tab>
+  <Tab>
+    {" "}
+    ```yarn add shimmershards``` <Copy copyText={"yarn add shimmershards"} />
+  </Tab>
+</Tabs>
+
+## Using shard
+
+### shard
+
+The `shard` function is creating a **Shard**. A shard represents a piece of state abstraction. The shard itself doesn't
+hold any state value. The function needs an initial value.
+
+```tsx
+import { shard } from "shimmershards";
+
+// create a shard
+const counterShard = shard(0);
+```
+
+To access the state, you must use the function called useShard.
+If you're using the same `shard` instance, the state can be shared across multiple components.
+
+### useShard
+
+The `useShard` functionality is the same as React's `useState`. But will take a shard instance as a parameter instead.
+
+```tsx
+import { shard, useShard } from "shimmershards";
+
+// create a shard
+const counterShard = shard(0);
+
+const Component = () => {
+  // using created shard via useShard
+  const [counter, setCounter] = useShard(counterShard);
+
+  return (
+    <button onClick={() => setCounter((prev) => prev + 1)}>
+      counter: {counter} + 1
+    </button>
+  );
+};
+```
+
+### State sharing
+
+If you want to share the state across the app, you can export the shard.
+
+```tsx
+import { shard } from "shimmershards";
+
+export const counterShard = shard(0);
+```
+
+Now you can import and use it in other components.
+
+```tsx
+import { counterShard } from "../dir";
+import { useShard } from "shimmershards";
+
+const const ComponentA = () => {
+  const [counter, setCounter] = useShard(counterShard);
+
+  return <div>ComponentA: {counter}</div>;
+};
+
+export const ComponentB = () => {
+  const [counter, setCounter] = useShard(counterShard);
+
+  return <div>ComponentB: {counter}</div>;
+};
+
+```
+
+When the state is updated in one place, all components using that shard will be in sync.

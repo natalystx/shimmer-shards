@@ -36,19 +36,21 @@ export const shard = <Type>(initial: Type) => {
   return new Shard(initial);
 };
 
-export const useShard = <Type>(store: Shard<Type>): State<Type> => {
-  const [state, setState] = useState(store.getInitialValue());
+export const useShard = <Type>(shard: Shard<Type>): State<Type> => {
+  const [state, setState] = useState(shard.getInitialValue());
   const publisher = new Publisher<Type>();
   const { scopeId } = useScope();
 
   const id = useMemo(() => {
-    const scopedId = `${scopeId}-${store.getId()}`;
+    if (!scopeId) return shard.getId();
+    const scopedId = `${scopeId}-${shard.getId()}`;
     return scopedList.get(scopeId || "")?.find((i) => i.getScope() === scopeId)
       ? scopedId
-      : store.getId();
+      : shard.getId();
   }, [scopeId]);
 
   useEffect(() => {
+    if (!id) return;
     if (!publishers.has(id)) {
       publishers.set(id, publisher);
     }
@@ -61,7 +63,7 @@ export const useShard = <Type>(store: Shard<Type>): State<Type> => {
     });
 
     return () => subscribe?.unsubscribe();
-  }, []);
+  }, [id]);
 
   return [
     state,
@@ -71,20 +73,21 @@ export const useShard = <Type>(store: Shard<Type>): State<Type> => {
         publishers.get(id)?.publish(newValue);
         return;
       }
+
       publishers.get(id)?.publish(v);
     },
   ];
 };
 
-export const useStoreValue = <Type>(store: Shard<Type>): Type => {
-  const [state, setState] = useState(store.getInitialValue());
+export const useStoreValue = <Type>(shard: Shard<Type>): Type => {
+  const [state, setState] = useState(shard.getInitialValue());
   const publisher = new Publisher<Type>();
   const { scopeId } = useScope();
   const id = useMemo(() => {
-    const scopedId = `${scopeId}-${store.getId()}`;
+    const scopedId = `${scopeId}-${shard.getId()}`;
     return scopedList.get(scopeId || "")?.find((i) => i.getScope() === scopeId)
       ? scopedId
-      : store.getId();
+      : shard.getId();
   }, [scopeId]);
 
   useEffect(() => {

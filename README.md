@@ -2,7 +2,7 @@
 
 ![Shimmer Shards Logo](https://github.com/qusenazlas/shimmer-shards/blob/main/assets/v2.png?raw=true "Logo")
 
-[![Size](https://img.shields.io/bundlephobia/minzip/shimmershards?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/shimmershards) [![Version](https://img.shields.io/npm/v/shimmershards?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/shimmershards)
+[![Size](https://img.shields.io/bundlephobia/minzip/shimmershards@latest?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/shimmershards) [![Version](https://img.shields.io/npm/v/shimmershards?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/shimmershards)
 
 ## What is ShimmerShards?
 
