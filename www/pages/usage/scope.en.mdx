@@ -116,3 +116,35 @@ const Component = () => {
   );
 };
 ```
+
+### Caveats
+
+To utilize a `Scope`, you need to call either `useShard` or `useCluster` within a
+child component that is placed under a Scope. The shard or cluster will
+then recognize the specific scope to which they belong based on where they are called.
+
+#### Will not work
+
+```tsx
+const Component = () => {
+  const { useName, useAge } = useCluster(cluster);
+  const [age, setAge] = useAge();
+  const [name, setName] = useName();
+
+  return (
+    <div>
+      {/* Outside scope */}
+      <p>
+        age: {age}
+        name: {name}
+      </p>
+      <br />
+      <Scope shards={cluster}>
+        {/* this age state will consuming the global scope anyway*/}
+        <p> age: {age}</p>
+      </Scope>
+      <br />
+    </div>
+  );
+};
+```
