@@ -1,5 +1,16 @@
+import React from "react";
 import "./globals.css";
+import { Kanit } from "next/font/google";
 
-export default function CustomApp({ Component }: any) {
-  return <Component />;
+const kanit = Kanit({
+  weight: ["300", "500", "600", "700"],
+  subsets: ["thai", "latin"],
+});
+
+export default function CustomApp({ Component }: { Component: React.FC }) {
+  return (
+    <main className={kanit.className}>
+      <Component />
+    </main>
+  );
 }

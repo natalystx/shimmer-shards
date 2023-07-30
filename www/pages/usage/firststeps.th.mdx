@@ -1,0 +1,88 @@
+import { Tabs, Tab } from "nextra/components";
+import Copy from "../../components/Copy";
+
+## การติดตั้ง
+
+<Tabs items={["npm", "pnpm", "yarn"]}>
+  <Tab>
+    ```npm i shimmershards``` <Copy copyText={"npm i shimmershards"} />
+  </Tab>
+  <Tab>
+    ```pnpm add shimmershards``` <Copy copyText={"pnpm add shimmershards"} />
+  </Tab>
+  <Tab>
+    {" "}
+    ```yarn add shimmershards``` <Copy copyText={"yarn add shimmershards"} />
+  </Tab>
+</Tabs>
+
+## วิธีการใช้ Shard (ชาร์ด)
+
+### shard (ชาร์ด)
+
+หน้าที่ของฟังก์ชั่น `shard` คือการสร้าง **Shard** ขึ้นมา, shard จะทำหน้าหน้าเป็นโครงสร้างของ state โดยที่ตัว shard เองจะไม่มีการเก็บการเปลี่ยน
+แปลงของค่า state ใดๆ ในการใช้ ฟังก์ชั่น `shard` นั้นต้องการ parameter 1 ตัวคือค่าเริ่มต้น
+
+```tsx
+import { shard } from "shimmershards";
+
+// สร้าง shard ขึ้นมา
+const counterShard = shard(0);
+```
+
+การที่จะใช้ state จาก shard นั้น เราต้องใช้ผ่านฟังก์ชั่น `useShard`,
+ถ้าเราใช้ shard ตัวเดียวกันในหลายๆ component นั้น เมื่อ state เกิดการเปลี่ยนแปลง state ของ component ทุกอันจะ sync กัน
+
+### useShard
+
+`useShard` ทำหน้าที่เหมือนกับ `useState` ของ React เลย แต่จะรับตัว shard ที่เราสร้างมาเป็น parameter แทน
+
+```tsx
+import { shard, useShard } from "shimmershards";
+
+// สร้าง shard ขึ้นมา
+const counterShard = shard(0);
+
+const Component = () => {
+  // ใช้ shard ที่สร้างขึ้นมากับ useShard
+  const [counter, setCounter] = useShard(counterShard);
+
+  return (
+    <button onClick={() => setCounter((prev) => prev + 1)}>
+      counter: {counter} + 1
+    </button>
+  );
+};
+```
+
+### แชร์ State ให้กับ Component อื่นๆ
+
+ถ้าเราต้องการแชร์ state ให้กับ component อื่นๆ เราแค่ export shard ที่สร้างขึ้นมา
+
+```tsx
+import { shard } from "shimmershards";
+
+export const counterShard = shard(0);
+```
+
+จากนั้นเราก็ import ไปใช้ใน component ต่างๆ ดังตัวอย่าง
+
+```tsx
+import { counterShard } from "../dir";
+import { useShard } from "shimmershards";
+
+const const ComponentA = () => {
+  const [counter, setCounter] = useShard(counterShard);
+
+  return <div>ComponentA: {counter}</div>;
+};
+
+export const ComponentB = () => {
+  const [counter, setCounter] = useShard(counterShard);
+
+  return <div>ComponentB: {counter}</div>;
+};
+
+```
+
+ถ้ามี component ไหน update state ทุก component ที่ใช้ shard เดียวกับก็จะ sync กันในทันที
