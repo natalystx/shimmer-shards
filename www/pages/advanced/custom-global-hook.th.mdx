@@ -1,0 +1,48 @@
+### สร้าง Global hooks
+
+ด้วยที่ ShimmerShards ทำงานและเก็บ state เป็น global state นั้น เราสามารถทำให้ custom hooks ของเรานั้นสามารถใช้งานได้
+เหมือนกับ React context ได้เลย โดยที่ไม่ต้องการ Provider ใดๆ เลยทำให้คุณสามารถ export hook ต่างไปใช้ได้ทั้ง app เมื่อเกิดการ
+เปลี่ยนแปลงต่างๆ เกิดขึ้นทุก component ก็จะ sync กันเหมือนเคย ในที่นี้เราขอยกตัวอย่างเป็น Authentication hook ดังตัวอย่างข้างล่าง
+
+#### ตัวอย่าง
+
+```tsx
+import { useShard, shard } from "shimmer-shards";
+
+const loggedInShard = shard(false);
+const userInShard = shard({ name: "", age: "", id: "" });
+
+export const useAuth = () => {
+  const [isLoggedIn, setIsLoggedIn] = useShard(loggedInShard);
+  const [user, setUser] = useShard(userInShard);
+
+  const login = (userData) => {
+    // Perform login logic, e.g., validate user credentials
+    setUser(userData);
+    setIsLoggedIn(true);
+  };
+
+  const logout = () => {
+    // Perform logout logic
+    setUser(null);
+    setIsLoggedIn(false);
+  };
+
+  return { isLoggedIn, user, login, logout };
+};
+```
+
+สามารถ import custom hook มาใช้ที่ component ตัวไหนก็ได้
+
+```tsx
+import { useAuth } from "../useAuth";
+const Component = () => {
+  const { isLoggedIn, user, login, logout } = useAuth();
+
+  if (isLoggedIn) {
+    return <div>Welcome, {user.name}!</div>;
+  } else {
+    return <button onClick={login}>Login</button>;
+  }
+};
+```

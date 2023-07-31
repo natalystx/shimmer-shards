@@ -47,7 +47,7 @@ const config: DocsThemeConfig = {
   primaryHue: 312,
   i18n: [
     { locale: "en", text: "English" },
-    // { locale: "th", text: "ไทย" },
+    { locale: "th", text: "ไทย" },
   ],
   project: {
     link: "https://github.com/natalystx/shimmer-shards",
