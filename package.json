@@ -32,11 +32,7 @@
     "lint": "npx eslint src/**/*",
     "format:write": "prettier src/**/* --write",
     "build": "npm run test && rm -rf dist/ && npx rollup -c",
-    "build:esm": "tsc -outDir dist/esm",
-    "build:types": "tsc --declaration --emitDeclarationOnly -outDir dist/types",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
     "release": "npm run build && npx changeset publish",
-    "setup": "npm install && npm run build",
     "docs": "cd ./www && npm run dev",
     "build:docs": "cd ./www && npm run build",
     "start:docs": "cd ./www && npm start"
