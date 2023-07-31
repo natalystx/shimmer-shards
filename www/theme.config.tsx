@@ -14,6 +14,34 @@ const config: DocsThemeConfig = {
     return (
       <>
         <link rel="icon" type="image/x-icon" href={icon.src} />
+        <meta name="title" content="shimmershards" />
+        <meta
+          name="description"
+          content="ShimmerShards - A Reactive React State Management Library"
+        />
+        <meta
+          name="keywords"
+          content="npm ,typescrip,t state-management, reactjs, nextjs, npm-package, mobx-react recoil, jotai, atomic-state, shimmershards"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="language" content="English" />
+        <meta name="language" content="Thai" />
+        <meta name="revisit-after" content="7 days" />
+        <meta property="og:url" content="https://www.shimmershards.dev/" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="ShimmerShards - A Reactive React State Management Library"
+        />
+        <meta
+          property="og:description"
+          content="ShimmerShards is a simple-to-use React state management solution, reduces unnecessary updates and lets you focus on creating an awesome developer experience."
+        />
+        <meta
+          property="og:image"
+          content="https://www.shimmershards.dev/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fv2_4x.b4a63739.png&w=3840&q=75"
+        />
       </>
     );
   },
