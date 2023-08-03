@@ -6,6 +6,7 @@ import Publisher from "../publisher";
 import { v4 as uuid } from "uuid";
 import { PrevFn, State } from "../cluster";
 import { scopedList, useScope } from "../Scope";
+import { getId } from "../../utils/getId";
 
 const publishers = new Map<string, Publisher<any>>();
 
@@ -41,13 +42,7 @@ export const useShard = <Type>(shard: Shard<Type>): State<Type> => {
   const publisher = new Publisher<Type>();
   const { scopeId } = useScope();
 
-  const id = useMemo(() => {
-    if (!scopeId) return shard.getId();
-    const scopedId = `${scopeId}-${shard.getId()}`;
-    return scopedList.get(scopeId || "")?.find((i) => i.getScope() === scopeId)
-      ? scopedId
-      : shard.getId();
-  }, [scopeId]);
+  const id = useMemo(() => getId(scopedList, shard, scopeId), [scopeId]);
 
   useEffect(() => {
     if (!id) return;
@@ -69,7 +64,7 @@ export const useShard = <Type>(shard: Shard<Type>): State<Type> => {
     state,
     (v: Type | PrevFn<Type>): void => {
       if (typeof v === "function") {
-        const newValue = (v as any)(state);
+        const newValue = (v as unknown as Function)(state) as Type;
         publishers.get(id)?.publish(newValue);
         return;
       }
@@ -83,12 +78,7 @@ export const useStoreValue = <Type>(shard: Shard<Type>): Type => {
   const [state, setState] = useState(shard.getInitialValue());
   const publisher = new Publisher<Type>();
   const { scopeId } = useScope();
-  const id = useMemo(() => {
-    const scopedId = `${scopeId}-${shard.getId()}`;
-    return scopedList.get(scopeId || "")?.find((i) => i.getScope() === scopeId)
-      ? scopedId
-      : shard.getId();
-  }, [scopeId]);
+  const id = useMemo(() => getId(scopedList, shard, scopeId), [scopeId]);
 
   useEffect(() => {
     if (!publishers.has(id)) {

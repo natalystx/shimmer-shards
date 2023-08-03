@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
+
+import { PersistShard, usePersistShard } from "../persist";
 import { Shard, useShard } from "../shard";
 
 export type ClusterMembers<Type = {}> = {
@@ -19,7 +22,11 @@ export const useCluster = <Type>(
   // eslint-disable-next-line prefer-const, @typescript-eslint/no-explicit-any
   let states: any = {};
   for (const item in data) {
-    states[item] = () => useShard(data[item]);
+    if ((data[item] as any)?.getKey) {
+      states[item] = () => usePersistShard(data[item] as PersistShard<any>);
+    } else {
+      states[item] = () => useShard(data[item]);
+    }
   }
 
   return states as ReturnClusterMembers<Type>;

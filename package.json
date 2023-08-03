@@ -1,6 +1,6 @@
 {
   "name": "shimmershards",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "shimmershards is a reactive state library",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -28,6 +28,7 @@
   ],
   "scripts": {
     "test": "npx jest tests/",
+    "test:watch": "npx jest tests/ --watchAll",
     "prepare": "husky install",
     "lint": "npx eslint src/**/*",
     "format:write": "prettier src/**/* --write",
