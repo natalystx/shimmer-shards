@@ -259,7 +259,7 @@ Persistence shard is compatible with `Cluster` also.
 
 #### Caveats:
 
-The persistence shard will not able be to `Scope`.
+The persistence shard will not be able to be ``Scope``.
 
 #### Key Highlights:
 
