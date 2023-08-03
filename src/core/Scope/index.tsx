@@ -31,6 +31,8 @@ const Scope = ({ children, shards }: ScopeContextProps) => {
     const keys = Object.keys(shards);
 
     const scopedShards = keys.map((i: string) => {
+      if ((shards as any)[i]?.getKey !== undefined)
+        return (shards as any)[i] as Shard;
       (shards as any)[i].addScope(scopedId);
       return (shards as any)[i] as Shard;
     });

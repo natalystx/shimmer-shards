@@ -216,6 +216,51 @@ const Component = () => {
 <br></br>
 ShimmerShards offers a seamless and efficient solution for managing and sharing state in your React applications. Its simplicity and full TypeScript support make it a top-notch choice for state management in your projects.
 
+### Persistance
+
+ShimmerShard allows you to persist data without worries for losing data. We'll keeping the all data that you want. Just keep it there!
+
+#### Create a persist shard
+
+The way to create a persistance shard just like a normal `shard` but we use `persist` instead of `shard`.
+
+```tsx
+import { persist } from "shimmershards";
+const examplePersistShard = persist({
+  initialValue: 0,
+  // localStorage's key
+  key: "key",
+  // optional
+  fallback: 2,
+});
+```
+
+To consume the persistance shard you need to use `usePersistShard` instead of`useShard`.
+
+```tsx
+import { persist, usePersistShard } from "shimmershards";
+
+const examplePersistShard = persist({
+  initialValue: 0,
+  // localStorage's key
+  key: "key",
+  // optional
+  fallback: 2,
+});
+
+const Component = () => {
+  const [counter, setCounter] = usePersistShard(examplePersistShard);
+  return <div>...</div>;
+};
+```
+
+In term of state sharing still using the same approach as `shard`.
+Persistance shard is compatible with `Cluster` also.
+
+#### Caveats:
+
+The persistance shard will not able be to `Scope`.
+
 #### Key Highlights:
 
 - Easy State Management: With ShimmerShards' shard function, creating and using shards as state variables is straightforward, similar to the useState hook in React.
