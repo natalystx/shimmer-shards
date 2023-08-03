@@ -1,10 +1,9 @@
-## Scope 🔭 🇹🇭
+## Scope (สโคป) 🔭
 
-### How it works?
+### Scope (สโคป) ทำงานยังไง?
 
-The `Scope` that allows you to localize shard states to specific sections of your application.
-By wrapping components with the Scope component, you can separate shard states,
-ensuring that updates in one scope do not affect others, even if the same shard is used.
+`Scope` คือการทำให้ state ของ shard นั้นใช้แยกการ sync ของ state ออกจากตัว global ของการทำงาน shard แบบปกติ
+เราสามารถแบ่งออกเป็นส่วนๆ ได้ โดยที่แต่ละ `Scope` นั้นจะมี state ที่แยกออกเป็นของตัวเองถึงแม้ว่าเราจะใช้ shard ตัวเดียวกัน
 
 ```tsx
 import { Scope, shard, useShard } from "shimmershards";
@@ -54,9 +53,10 @@ const Component = () => {
 };
 ```
 
-With the Scope component, you can manage shard states independently within different sections of your application. Any updates to the state within one scope will not impact the state in other scopes or the outside scope, even if you are using the same shards.
+`Scope` จะแยกการทำงานของ shard นั้น ออกจากกันโดยการที่เราใช้ตัว `Scope` component นั้น Wrap ตัว child component ไว้และส่ง props ที่ชื่อว่า `shards`
+โดยที่ shards จะรับเป็น `Shard Array` ดังตัวอย่าง ส่วน shard ตัวอื่นๆ ที่ไม่ได้อยู่ใน shard array ดังกล่าวก็จะใช้ค่าตาม global state ตามปกติ
 
-### Using scope with Cluster
+### ใช้งาน Scope กับ Cluster
 
 ```tsx
 import { Scope, shard, useCluster } from "shimmershards";
@@ -94,7 +94,7 @@ const Component = () => {
 
   return (
     <div>
-      {/* Outside scope */}
+      {/* อยู่นอก Scope*/}
       <p>
         age: {age}
         name: {name}
@@ -114,4 +114,33 @@ const Component = () => {
 };
 ```
 
-### Nested Scope
+### ข้อควรระวัง
+
+ในการใช้ `Scope` นั้นฟังก์ `useShard` หรือ `useCluster` นั้นจะต้องถูกใช้ภายใต้ Scope component เท่านั้นถึงจะนับว่าเป็นค่าใน Scope นั้นๆ
+หากเราใช้ดังตัวอย่างข้างล่างนี้จะไม่สามารถใช้งานค่าใน scope นั้นได้
+
+#### จะใช้งานไม่ได้
+
+```tsx
+const Component = () => {
+  const { useName, useAge } = useCluster(cluster);
+  const [age, setAge] = useAge();
+  const [name, setName] = useName();
+
+  return (
+    <div>
+      {/* อยู่นอก Scope*/}
+      <p>
+        age: {age}
+        name: {name}
+      </p>
+      <br />
+      <Scope shards={cluster}>
+        {/* ตัวแปร age จะใช้ค่าจาก global scope ถึงแม้ว่าจะอยู่ข้างใน Scope component ก็ตาม*/}
+        <p> age: {age}</p>
+      </Scope>
+      <br />
+    </div>
+  );
+};
+```

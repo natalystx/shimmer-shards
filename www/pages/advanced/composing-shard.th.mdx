@@ -1,0 +1,22 @@
+### การรวม shard เข้าด้วยกัน
+
+สำหรับการรวมข้อมูลของ `shard` เข้าด้วยกันนั้น เราจะไม่มีฟังก์ชั่นจาก library มาให้ แต่สามารถใช้ `useMemo` หรือ `useEffect` ในการช่วยสร้าง
+ข้อมูลใหม่จากการรวมข้อมูล shard ได้เลย หรือว่าจะสร้างตัวแปรใหม่เพื่อมาเก็บค่าก็ได้เช่นกัน ดังตัวอย่างข้างล่าง 
+
+```tsx
+const Component = () => {
+  const [name, setName] = useShard(nameShard);
+  const [age, setName] = useShard(ageShard);
+
+  // create a new variable
+  const userObj = {name, age, active: true}
+
+  // using useMemo
+  const user = useMemo(() => ({ name, age, active: true }), [name, age]);
+  // or using useEffect
+  const [userState, setUser] = useState({});
+  useEffect(() => {
+    setUser((prev) => ({ ...prev, name, age, active: true }));
+  }, [name, age]);
+};
+```

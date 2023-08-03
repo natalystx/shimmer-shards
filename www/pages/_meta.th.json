@@ -1,0 +1,21 @@
+{
+  "index": "อะไรคือ ShimmerShards?",
+  "usage": "เริ้มต้นใช้งาน 👩‍💻",
+  "advanced": "การใช้งานอื่นๆ 🏄‍♀️",
+  "playground": "ทดลอง/ทดสอบ 🛝",
+  "npm": {
+    "title": "แพ็คเกจ",
+    "href": "https://www.npmjs.com/package/shimmershards",
+    "newWindow": true
+  },
+  "issue": {
+    "title": "รายงานปัญหา",
+    "href": "https://github.com/natalystx/shimmer-shards/issues/new",
+    "newWindow": true
+  },
+  "repository": {
+    "title": "Github",
+    "href": "https://github.com/natalystx/shimmer-shards",
+    "newWindow": true
+  }
+}
