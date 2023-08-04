@@ -257,9 +257,9 @@ const Component = () => {
 State sharing still uses the same approach as `shard`.
 Persistence shard is compatible with `Cluster` also.
 
-#### Caveats:
+#### Caveats
 
-The persistence shard will not be able to be ``Scope``.
+The persistence shard will not be able to be `Scope`.
 
 #### Key Highlights:
 
