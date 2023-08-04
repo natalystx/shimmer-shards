@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createContext, useContext, useMemo } from "react";
 import { v4 as uuid } from "uuid";
-import { Shard } from "../shard";
+import { Shard } from "../../core/shard";
 
 export const scopedList = new Map<string, Shard[]>();
 
