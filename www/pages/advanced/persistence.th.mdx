@@ -1,0 +1,43 @@
+### Persistence (การฝังข้อมูล)
+
+บางทีเราอยากจะเก็บข้อมูลไว้ ไม่ให้หายไป คุณจะไม่ต้องกังวลอีกต่อไป คุณสามารถเก็บข้อมูลของคุณไว้ได้ตามที่ต้องการได้ อย่างหมดห่วง
+
+#### สร้าง Persistence shard
+
+การสร้าง persistence shard นั้นคล้ายกับการสร้าง shard ปกติเลย แต่แทนที่เราจะให้ฟังก์ชั่น `shard` เราจะใช้ฟังก์ชั่น `persist` แทนดังตัวอย่าง
+
+```tsx
+import { persist } from "shimmershards";
+const examplePersistShard = persist({
+  initialValue: 0,
+  // localStorage's key
+  key: "key",
+  // optional
+  fallback: 2,
+});
+```
+
+ในการใช้ persistance shard ที่สร้างขึ้นมานั้นก็เหมือนกับการใช้ shard ปกติเลย แต่ใช้ `usePersistShard` แทน `useShard`
+
+```tsx
+import { persist, usePersistShard } from "shimmershards";
+
+const examplePersistShard = persist({
+  initialValue: 0,
+  // localStorage's key
+  key: "key",
+  // optional
+  fallback: 2,
+});
+
+const Component = () => {
+  const [counter, setCounter] = usePersistShard(examplePersistShard);
+  return <div>...</div>;
+};
+```
+
+ส่วนการแชร์ state ต่างๆ และการใช้ร่วมกับ `Cluster` ยังใช้ได้ตามปกติ
+
+#### ข้อควรระวัง
+
+Persistence shard นั้นจะไม่สามารถถูก `Scope` ได้
