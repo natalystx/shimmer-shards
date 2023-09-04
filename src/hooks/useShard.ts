@@ -11,11 +11,12 @@ import { getId } from "../utils/getId";
 const publishers = new Map<string, Publisher<any>>();
 
 export const useShard = <Type>(shard: Shard<Type>): State<Type> => {
-  const [state, setState] = useState(shard.getInitialValue());
-  const publisher = new Publisher<Type>();
   const { scopeId } = useScope();
-
   const id = useMemo(() => getId(scopedList, shard, scopeId), [scopeId]);
+  const [state, setState] = useState(
+    publishers?.get(id)?.getRecentlyData() ?? shard.getInitialValue()
+  );
+  const publisher = new Publisher<Type>();
 
   useEffect(() => {
     if (!id) return;
@@ -31,11 +32,12 @@ export const useShard = <Type>(shard: Shard<Type>): State<Type> => {
     });
 
     return () => subscribe?.unsubscribe();
-  }, [id]);
+  }, []);
 
   return [
     state,
     (v: Type | PrevFn<Type>): void => {
+      if (v === state) return;
       if (typeof v === "function") {
         const newValue = (v as unknown as Function)(state) as Type;
         publishers.get(id)?.publish(newValue);
