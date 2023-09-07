@@ -6,8 +6,9 @@ export class Shard<Type = {}> {
   private value: Type;
   private uuid = uuid();
   private scoped?: string;
-  constructor(initialValue: Type) {
+  constructor(initialValue: Type, customId?: string) {
     this.value = initialValue;
+    if (customId) this.uuid = customId;
   }
 
   getId = () => {
