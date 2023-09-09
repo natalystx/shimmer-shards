@@ -1,0 +1,36 @@
+### Memo and Effect
+
+ฟังก์ชัน `memo` และ `effect` ถูกสร้างขึ้นมาเพื่อแก้ปัญหาในการใช้ custom hooks สำหรับการ share state และ functionality ต่างๆ
+แต่ปัญหาของการใช้ custom hooks คือการสร้าง instance ของ function ใหม่ทุกครั้งเมื่อใช้ custom hooks เอง `memo` และ `effect`
+จึงมาแก้ปัญหาดังกล่าว
+
+#### memo
+
+`memo` คือ higher-order function ที่ทำให้ custom hooks มี instance เป็นของตัวเอง
+
+#### effect
+
+`effect` คือฟังก์ที่คล้ายกับ `useEffect` สำหรับการทำ sync action ต่างๆ ผ่านการ track dependencies
+
+#### ข้อควรระวัง
+
+`effect` ต้องถูกใช้ภายใต้ฟังก์ชัน `memo` เท่านั้น หากต้องการให้ custom hook ทำงานได้อย่างที่ควรจะเป็น ควรใช้ `effect` แทน `useEffect`
+
+#### ตัวอย่าง
+
+```ts
+import {memo, effect, shard, useShard} from 'shimmershards'
+
+const counterShard = shard(0)
+
+export const useCounter = memo(() => {
+    const [counter, setCounter] = useShard(counterShard)
+    const
+
+    effect(() => {
+        console.log(counter)
+    }, [counter])
+
+    return {counter,setCounter}
+})
+```

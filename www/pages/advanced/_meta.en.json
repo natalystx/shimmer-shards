@@ -1,5 +1,6 @@
 {
   "composing-shard": "Composing shards",
   "custom-global-hook": "Custom global hooks",
-  "persistence": "Persistence"
+  "persistence": "Persistence",
+  "memo_and_effect": "Memo & Effect"
 }
