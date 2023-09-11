@@ -14,23 +14,27 @@ beforeEach(() => {
 
 afterEach(() => {
   component.unmount();
+  fn.mockClear();
+  fn2.mockClear();
 });
 describe("effect", () => {
-  test("is Render", () => {
+  test("is Render & fn is call correctly at first render", () => {
     expect(screen.getByTestId("counter-text-A")).toBeInTheDocument();
     expect(screen.getByTestId("counter-text-B")).toBeInTheDocument();
-  });
-  test("fn is call correctly at first render", () => {
     expect(fn).toBeCalledTimes(2);
     expect(fn2).toBeCalledTimes(1);
+  });
+  test("fn is call correctly on remounted", () => {
+    expect(fn).toBeCalledTimes(1);
+    expect(fn2).toBeCalledTimes(0);
     expect(screen.getByTestId("counter-text-A").innerHTML).toEqual("0");
     expect(screen.getByTestId("counter-text-B").innerHTML).toEqual("0");
   });
   test("fn is call correctly with deps synced", () => {
     const button = screen.getByTestId("counter-increase-button");
     fireEvent.click(button);
-    expect(fn).toBeCalledTimes(3);
-    expect(fn2).toBeCalledTimes(2);
+    expect(fn).toBeCalledTimes(2);
+    expect(fn2).toBeCalledTimes(1);
     expect(screen.getByTestId("counter-text-A").innerHTML).toEqual("1");
     expect(screen.getByTestId("counter-text-B").innerHTML).toEqual("1");
   });
