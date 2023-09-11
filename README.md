@@ -261,6 +261,43 @@ Persistence shard is compatible with `Cluster` also.
 
 The persistence shard will not be able to be `Scope`.
 
+### Memo and Effect
+
+`memo` and `effect` functions are tools to handle custom hooks.
+When you work with a custom hook that shares state or functionality,
+they won't necessarily use the same instance or cache. That's where memo and effect functions come in handy to address this problem.
+
+#### memo
+
+`memo` is a higher-order function that makes your custom function behave like an instance.
+
+#### effect
+
+`effect` is a function similar to useEffect that helps you manage dependencies provided to the function.
+
+#### Caveats
+
+To capture useEffect properly, use effect instead of useEffect. Remember that effect should be exclusively used within the memo function.
+
+#### Example
+
+```ts
+import {memo, effect,shard,useShard} from 'shimmershards'
+
+const counterShard = shard(0)
+
+export const useCounter = memo(() => {
+    const [counter, setCounter] = useShard(counterShard)
+    const
+
+    effect(() => {
+        console.log(counter)
+    }, [counter])
+
+    return {counter,setCounter}
+})
+```
+
 #### Key Highlights:
 
 - Easy State Management: With ShimmerShards' shard function, creating and using shards as state variables is straightforward, similar to the useState hook in React.

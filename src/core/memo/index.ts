@@ -11,6 +11,7 @@ export const memo = <T extends Function>(fn: T): T => {
   const handler = {
     apply: (target: T, thisArg: unknown, argumentsList: unknown[]) => {
       memoId = id;
+
       return target(...argumentsList);
     },
   };

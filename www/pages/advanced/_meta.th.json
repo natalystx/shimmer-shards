@@ -1,5 +1,6 @@
 {
   "composing-shard": "รวม shard เข้าด้วยกัน",
   "custom-global-hook": "สร้าง Global hooks",
-  "persistence": "Persistence (การฝังข้อมูล)"
+  "persistence": "Persistence (การฝังข้อมูล)",
+  "memo_and_effect": "Memo & Effect"
 }

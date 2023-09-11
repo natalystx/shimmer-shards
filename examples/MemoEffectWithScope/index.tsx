@@ -34,7 +34,6 @@ const Outside = ({ fn }: { fn?: () => void }) => {
   const { counter, setCounter } = useCounter(fn);
   return (
     <div>
-      {" "}
       <div data-testid="counter-text-outside-scope">{counter}</div>{" "}
       <button
         data-testid="counter-increase-button-outside-scope"
