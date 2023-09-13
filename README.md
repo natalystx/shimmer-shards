@@ -288,20 +288,19 @@ To capture useEffect properly, use effect instead of useEffect. Remember that ef
 #### Example
 
 ```ts
-import {memo, effect,shard,useShard} from 'shimmershards'
+import { memo, effect, shard, useShard } from "shimmershards";
 
-const counterShard = shard(0)
+const counterShard = shard(0);
 
 export const useCounter = memo(() => {
-    const [counter, setCounter] = useShard(counterShard)
-    const
+  const [counter, setCounter] = useShard(counterShard);
 
-    effect(() => {
-        console.log(counter)
-    }, [counter])
+  effect(() => {
+    console.log(counter);
+  }, [counter]);
 
-    return {counter,setCounter}
-})
+  return { counter, setCounter };
+});
 ```
 
 #### Key Highlights:
