@@ -32,6 +32,12 @@ yarn add shimmershards
 pnpm add shimmershards
 ```
 
+**Bun**
+
+```bash
+bun add shimmershards
+```
+
 ### How to use?
 
 #### Create a shard
