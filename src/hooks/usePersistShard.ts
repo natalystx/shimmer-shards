@@ -11,9 +11,10 @@ const publishers = new Map<string, any>();
 export const usePersistShard = <Type>(
   persistShard: PersistShard<Type>
 ): State<Type> => {
+  if (!global.window) return [] as unknown as State<Type>;
   const publisher = new Publisher<Type>();
 
-  let data = JSON.parse(localStorage.getItem(persistShard.getKey()) || "null");
+  let data = JSON.parse(localStorage?.getItem(persistShard.getKey()) || "null");
   const [state, setState] = useState(data || persistShard.getInitialValue());
   const id = persistShard.getId();
   useEffect(() => {
@@ -23,7 +24,7 @@ export const usePersistShard = <Type>(
     }
 
     if (data === null) {
-      localStorage.setItem(
+      localStorage?.setItem(
         persistShard.getKey(),
         JSON.stringify(persistShard.getInitialValue())
       );
@@ -50,13 +51,13 @@ export const usePersistShard = <Type>(
     (v: Type | PrevFn<Type>): void => {
       if (typeof v === "function") {
         const newValue = (v as unknown as Function)(state) as Type;
-        localStorage.setItem(persistShard.getKey(), JSON.stringify(newValue));
+        localStorage?.setItem(persistShard.getKey(), JSON.stringify(newValue));
         publishers.get(id)?.publish(newValue);
         return;
       }
 
       publishers.get(id)?.publish(v);
-      localStorage.setItem(persistShard.getKey(), JSON.stringify(v));
+      localStorage?.setItem(persistShard.getKey(), JSON.stringify(v));
     },
   ];
 };
