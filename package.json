@@ -1,6 +1,6 @@
 {
   "name": "shimmershards",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "shimmershards is a reactive state library",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -42,12 +42,12 @@
     "*": "eslint"
   },
   "peerDependencies": {
-    "react": ">=17.0.0",
-    "uuid": ">=9.0.0"
+    "react": ">=17.0.0"
   },
   "author": "qusenazlas",
   "license": "MIT",
   "devDependencies": {
+    "uuid": "^9.0.0",
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
