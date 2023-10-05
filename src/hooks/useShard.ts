@@ -48,21 +48,3 @@ export const useShard = <Type>(shard: Shard<Type>): State<Type> => {
     },
   ];
 };
-
-export const useStoreValue = <Type>(shard: Shard<Type>): Type => {
-  const [state, setState] = useState(shard.getInitialValue());
-  const publisher = new Publisher<Type>();
-  const { scopeId } = useScope();
-  const id = useMemo(() => getId(scopedList, shard, scopeId), [scopeId]);
-
-  useEffect(() => {
-    if (!publishers.has(id)) {
-      publishers.set(id, publisher);
-    }
-    publishers.get(id)?.subscribe((v: Type) => {
-      setState(v);
-    });
-  }, []);
-
-  return state;
-};
