@@ -29,6 +29,10 @@ const config: DocsThemeConfig = {
         <meta name="language" content="Thai" />
         <meta name="revisit-after" content="7 days" />
         <meta property="og:url" content="https://www.shimmershards.dev/" />
+        <meta
+          name="google-site-verification"
+          content="0TU4HjTUC2nzVC_kwg5mgExJrBteykYPEH1kJ5S6_QQ"
+        />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
