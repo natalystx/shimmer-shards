@@ -6,7 +6,7 @@ const Child = () => {
   const [counter, setCounter] = useShard(counterShard);
   return (
     <div>
-      <div data-testid="child">{counter}</div>
+      <div data-testid="child">{counter()}</div>
       <button
         data-testid="increase-from-child"
         onClick={() => setCounter((prev) => prev + 1)}

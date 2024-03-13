@@ -7,7 +7,7 @@ const Cluster = () => {
   const [counter, setCounter] = useCounter();
   return (
     <div data-testid="persist-wrapper">
-      <p data-testid="counter-persist">{counter}</p>
+      <p data-testid="counter-persist">{counter()}</p>
       <button
         onClick={() => setCounter((prev) => prev + 1)}
         data-testid="counter-persist-increase"

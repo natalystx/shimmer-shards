@@ -9,7 +9,9 @@ export type ClusterMembers<Type = {}> = {
 
 export type PrevFn<Type> = (v: Type) => Type;
 
-export type State<Type> = [Type, (v: Type | PrevFn<Type>) => void];
+export type GetState<Type> = () => Type;
+
+export type State<Type> = [GetState<Type>, (v: Type | PrevFn<Type>) => void];
 
 export type ReturnClusterMembers<Type> = {
   [Property in keyof Type]: () => State<Type[Property]>;

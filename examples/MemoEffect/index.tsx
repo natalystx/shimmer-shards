@@ -9,7 +9,7 @@ type Props = {
 
 const A = ({ fn }: Props) => {
   const { counter } = useCounter(fn);
-  return <div data-testid="counter-text-A">{counter}</div>;
+  return <div data-testid="counter-text-A">{counter()}</div>;
 };
 const B = ({ fn, fn2 }: Props) => {
   const { counter, setCounter } = useCounter(fn);
@@ -17,7 +17,7 @@ const B = ({ fn, fn2 }: Props) => {
 
   return (
     <div>
-      <div data-testid="counter-text-B">{counter}</div>
+      <div data-testid="counter-text-B">{counter()}</div>
       <button
         data-testid="counter-increase-button"
         onClick={() => setCounter((prev) => prev + 1)}

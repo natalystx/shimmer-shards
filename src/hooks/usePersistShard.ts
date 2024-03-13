@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { PersistShard } from "../core/persist";
 import Publisher from "../core/publisher";
 import { State, PrevFn } from "../types";
+import { proxyState } from "../utils/proxyState";
 
 const publishers = new Map<string, any>();
 
@@ -15,7 +16,7 @@ export const usePersistShard = <Type>(
   const publisher = new Publisher<Type>();
 
   let data = JSON.parse(localStorage?.getItem(persistShard.getKey()) || "null");
-  const [state, setState] = useState(data || persistShard.getInitialValue());
+  const proxyStateData = proxyState(data || persistShard.getInitialValue());
   const id = persistShard.getId();
   useEffect(() => {
     if (!id && persistShard.getKey()) return;
@@ -32,25 +33,28 @@ export const usePersistShard = <Type>(
     }
 
     if (publishers.get(id)?.getRecentlyData()) {
-      setState(publishers.get(id)?.getRecentlyData());
+      proxyStateData[1](publishers.get(id)?.getRecentlyData());
     } else {
-      setState(
+      proxyStateData[1](
         data ?? persistShard.getInitialValue() ?? persistShard.getFallbackData()
       );
     }
 
     const subscribe = publishers.get(id)?.subscribe((v: any) => {
-      setState(v);
+      proxyStateData[1](v);
     });
 
     return () => subscribe?.unsubscribe();
   }, [id]);
 
   return [
-    state as Type,
+    () => proxyStateData[0],
     (v: Type | PrevFn<Type>): void => {
       if (typeof v === "function") {
-        const newValue = (v as unknown as Function)(state) as Type;
+        const newValue = (v as unknown as Function)(
+          publishers.get(id)?.getRecentlyData() ||
+            persistShard.getInitialValue()
+        ) as Type;
         localStorage?.setItem(persistShard.getKey(), JSON.stringify(newValue));
         publishers.get(id)?.publish(newValue);
         return;

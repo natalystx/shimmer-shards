@@ -6,7 +6,7 @@ export const useAnother = memo((fn?: () => void) => {
 
   effect(() => {
     fn?.();
-  }, [counter]);
+  }, [counter()]);
 
   return { counter };
 });

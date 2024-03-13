@@ -17,7 +17,7 @@ const Cluster = () => {
         >
           add more counter
         </button>
-        <p data-testid="parent-text">{name}</p>
+        <p data-testid="parent-text">{name()}</p>
       </div>
       <Child />
     </>

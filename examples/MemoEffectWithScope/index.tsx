@@ -11,7 +11,7 @@ type Props = {
 
 const A = ({ fn }: Props) => {
   const { counter } = useCounter(fn);
-  return <div data-testid="counter-text-A-scope">{counter}</div>;
+  return <div data-testid="counter-text-A-scope">{counter()}</div>;
 };
 const B = ({ fn, fn2 }: Props) => {
   const { counter, setCounter } = useCounter(fn);
@@ -19,7 +19,7 @@ const B = ({ fn, fn2 }: Props) => {
 
   return (
     <div>
-      <div data-testid="counter-text-B-scope">{counter}</div>
+      <div data-testid="counter-text-B-scope">{counter()}</div>
       <button
         data-testid="counter-increase-button-scope"
         onClick={() => setCounter((prev) => prev + 1)}
@@ -34,7 +34,7 @@ const Outside = ({ fn }: { fn?: () => void }) => {
   const { counter, setCounter } = useCounter(fn);
   return (
     <div>
-      <div data-testid="counter-text-outside-scope">{counter}</div>{" "}
+      <div data-testid="counter-text-outside-scope">{counter()}</div>{" "}
       <button
         data-testid="counter-increase-button-outside-scope"
         onClick={() => setCounter((prev) => prev + 1)}

@@ -8,7 +8,7 @@ const Child = () => {
   const [, setName] = useName();
   return (
     <div data-testid="child-wrapper">
-      <p data-testid="child-counter-text">{counter}</p>
+      <p data-testid="child-counter-text">{counter()}</p>
       <input
         onChange={(e) => setName(e.target.value)}
         data-testid="child-name-input"

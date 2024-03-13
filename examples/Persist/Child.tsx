@@ -6,7 +6,7 @@ const Child = () => {
   const [counter, setCounter] = usePersistShard(persistCountShard);
   return (
     <div>
-      <div data-testid="persist-child">{counter}</div>
+      <div data-testid="persist-child">{counter()}</div>
       <button
         data-testid="persist-increase-from-child"
         onClick={() => setCounter((prev) => prev + 1)}

@@ -9,8 +9,8 @@ const ComponentA = ({ id }: { id: string }) => {
   const [counterValue, setCounter] = useCounter();
   return (
     <div data-testid={`component-a-${id}`}>
-      <p data-testid={`component-a-${id}-name`}>{nameValue}</p>
-      <p data-testid={`component-a-${id}-counter`}>{counterValue}</p>
+      <p data-testid={`component-a-${id}-name`}>{nameValue()}</p>
+      <p data-testid={`component-a-${id}-counter`}>{counterValue()}</p>
       <button
         onClick={() => setCounter((prev) => prev + 1)}
         data-testid={`component-a-increase-${id}-button`}
@@ -27,8 +27,8 @@ const ComponentB = ({ id }: { id: string }) => {
   const [nameValue, setName] = useName();
   return (
     <div data-testid={`component-b-${id}`}>
-      <p data-testid={`component-b-${id}-counter`}>{counterValue}</p>
-      <p data-testid={`component-b-${id}-name`}>{nameValue}</p>
+      <p data-testid={`component-b-${id}-counter`}>{counterValue()}</p>
+      <p data-testid={`component-b-${id}-name`}>{nameValue()}</p>
       <input
         onChange={(e) => setName(e.target.value)}
         data-testid={`component-b-name-${id}-input`}
@@ -43,12 +43,12 @@ const OutSideScope = () => {
   const [counterValue] = useCounter();
   return (
     <div data-testid="outside-scope-wrapper">
-      <p data-testid="outside-scope-name-value">{nameValue}</p>
+      <p data-testid="outside-scope-name-value">{nameValue()}</p>
       <input
         onChange={(e) => setName(e.target.value)}
         data-testid="outside-scope-name-input"
       />
-      <p data-testid="outside-scope-counter-value">{counterValue}</p>
+      <p data-testid="outside-scope-counter-value">{counterValue()}</p>
     </div>
   );
 };

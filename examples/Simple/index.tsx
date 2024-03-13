@@ -5,7 +5,7 @@ import Child from "./Child";
 
 const Hidden = () => {
   const [counter] = useShard(counterShard);
-  return <div data-testid="hidden-element">{counter}</div>;
+  return <div data-testid="hidden-element">{counter()}</div>;
 };
 
 const Simple = () => {
@@ -14,13 +14,13 @@ const Simple = () => {
   const [double, setDouble] = useState(0);
 
   useEffect(() => {
-    setDouble(counter * 2);
+    setDouble(counter() * 2);
   }, [counter]);
 
   return (
     <>
       <div data-testid="simple-wrapper">
-        <p data-testid="counter-text">{counter}</p>
+        <p data-testid="counter-text">{counter()}</p>
         <button
           data-testid="increase-counter-button"
           onClick={() => setCounter((prev) => prev + 1)}

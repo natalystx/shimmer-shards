@@ -33,6 +33,7 @@
     "lint": "npx eslint src/**/*",
     "format:write": "prettier src/**/* --write",
     "build": "npm run test && rm -rf dist/ && npx rollup -c",
+    "build:dev": "rm -rf dist/ && npx rollup -c",
     "release": "npm run build && npx changeset publish",
     "docs": "cd ./www && npm run dev",
     "build:docs": "cd ./www && npm run build",
