@@ -8,10 +8,16 @@ import { State, PrevFn } from "../types";
 
 const publishers = new Map<string, any>();
 
+declare const global: any;
+
 export const usePersistShard = <Type>(
   persistShard: PersistShard<Type>
 ): State<Type> => {
-  if (!global.window) return [] as unknown as State<Type>;
+  if (typeof global !== "undefined") {
+    if (!global.window) {
+      return [persistShard.getFallbackData(), () => {}];
+    }
+  }
   const publisher = new Publisher<Type>();
 
   let data = JSON.parse(localStorage?.getItem(persistShard.getKey()) || "null");
