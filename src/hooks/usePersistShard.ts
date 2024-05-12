@@ -18,7 +18,6 @@ export const usePersistShard = <Type>(
       return [persistShard.getFallbackData(), () => {}];
     }
   }
-
   const publisher = new Publisher<Type>();
 
   let data = JSON.parse(localStorage?.getItem(persistShard.getKey()) || "null");
