@@ -27,7 +27,8 @@ export const useShard = <Type>(shard: Shard<Type>): State<Type> => {
     if (publishers.get(id)?.getRecentlyData()) {
       setState(publishers.get(id)?.getRecentlyData());
     }
-    const subscribe = publishers.get(id)?.subscribe((v) => {
+
+    const subscribe = publishers.get(id)?.subscribe((v: Type) => {
       setState(v);
     });
 
@@ -37,7 +38,6 @@ export const useShard = <Type>(shard: Shard<Type>): State<Type> => {
   return [
     state,
     (v: Type | PrevFn<Type>): void => {
-      if (v === state) return;
       if (typeof v === "function") {
         const newValue = (v as unknown as Function)(state) as Type;
         publishers.get(id)?.publish(newValue);
